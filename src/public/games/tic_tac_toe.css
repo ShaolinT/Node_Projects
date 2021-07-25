@@ -1,0 +1,70 @@
+
+*{
+    /* margin: 0px;
+    padding: 0px; */
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body, html{
+    height: 100%;
+    margin: 0;
+}
+
+.background_image{
+    background: url("./1.jpg") no-repeat center 25%;
+    background-size: 1600px 1024px;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    /* Blur Effect */
+
+    filter: blur(4px);
+
+}
+ 
+ /* 3*3 Grid */
+ #b1, #b2, #b3, #b4, #b5, 
+ #b6, #b7, #b8, #b9 {
+     width: 80px;
+     height: 52px;
+     margin: auto;
+     border: 1px solid grey;
+     border-radius: 6px;
+     font-size: 30px;
+     text-align: center;
+ }
+.red{
+ color:red
+}
+
+.container {
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid red;
+    margin: 30px auto;
+    flex-basis: 17%;
+    opacity: 104;
+    max-width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 20px;
+    z-index: 2; */
+
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+}

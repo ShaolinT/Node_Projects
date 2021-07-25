@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatWith - Realtime Chat API Socket.io</title>
+    <script defer src="http://localhost:7050/socket.io/socket.io.js"></script>
+    <script defer src="/controller/Chat_Application/client.js"></script>
+    <link rel="stylesheet" href="/public/Chat_Application/style.css">
+    
+
+<!-- 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.navbar').load('../backend/templates/navbar.html')
+        });
+    </script> -->
+
+</head>
+
+<body>
+    {{>navbar}}
+    {{!-- <nav> --}}
+        <img src="/public/Chat_Application/logo.png" alt="" class="logo">
+        <h1>Welcome to ChatWith Application</h1>
+    {{!-- </nav> --}}
+    <div class="container"></div>
+    <div class="send">
+        <form action="#" id="send-container">
+            <input type="text" name="messageInp" id="messageInp">
+            <button class="btn" type="submit" id="btn">send</button>
+        </form>
+    </div>
+</body>
+
+</html>

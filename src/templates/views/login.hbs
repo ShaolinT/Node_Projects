@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup/Login Form</title>
+    <link rel="stylesheet" type="text/css" href="/public/login_signup/css/loginSignup.css">
+    <script defer src="/controller/signup_login.js"></script>
+
+</head>
+
+<body>
+    {{>index_navbar}}
+
+    <div class="container right-panel-active">
+        <!-- Sign Up -->
+        <!-- <div class="container__form container--signup">
+            <form action="/signup" class="form" method="POST" id="form1">
+                <h2 class="form__title">Sign Up</h2>
+                <input type="text" autocomplete="off" name="username" placeholder="Username" class="input" "/>
+                <input type="email" autocomplete="off" name="email"  placeholder="Email" class="input"  />
+                <input type="password" autocomplete="off"  name="password" placeholder="Password" class="input"  />
+                <button class="btn" value="User" type="submit">Sign Up</button>
+            </form>
+        </div> -->
+
+        <!-- Sign In -->
+        <div class="container__form container--signin">
+            <form action="/login" class="form" method="POST" id="form2">
+                <h2 class="form__title">Sign In</h2>
+                {{!-- <input type="text" placeholder="Username" class="input" id="username" /> --}}
+                <input type="email" autocomplete="off" placeholder="Email" class="input" id="email" />
+                <input type="password" autocomplete="off" placeholder="Password" class="input" id="password" />
+                <a href="#" class="link">Forgot your password?</a>
+                <button class="btn" value="" type="submit">Sign In</button>
+            </form>
+        </div>
+
+        <!-- Overlay -->
+        <div class="container__overlay">        
+            <div class="overlay">
+                <!-- <div class="overlay__panel overlay--left">
+                    <button class="btn" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay__panel overlay--right">
+                    <button class="btn" id="signUp">Sign Up</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+        <script>
+
+        const form = document.getElementById("form2");
+        form.addEventListener("submit", login)
+
+        async function login(e) {
+            e.preventDefault()
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const result = await fetch('/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            }).then((res) => res.json())
+
+            if (result.status === 'ok') {
+                // everythign went fine
+                console.log('Got the token: ', result.data)
+                localStorage.setItem('token', result.data)
+                alert('Success')
+
+                //If login Successfull redirect to Dashboard
+                window.location.href = '/dashboard';
+            } else {
+                alert(result.error)
+            }
+
+        }
+    </script>
+</body>
+
+</html>
