@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require('passport');
+const { ensureAuthenticated } = require('../config/auth.js');
 
 const JWT_Secret = "asdasddui8d88d76d7d6d54&^%&*^(*&)(&*(^$!!";
 
@@ -12,7 +13,7 @@ const JWT_Secret = "asdasddui8d88d76d7d6d54&^%&*^(*&)(&*(^$!!";
 const User = require("../models/user");
 const { forwardAuthenticated } = require('../config/auth');
 
-router.get("/signup", forwardAuthenticated ,(req, res) => {
+router.get("/signup", forwardAuthenticated, (req, res) => {
   res.status(200).render("signup");
 });
 
@@ -59,53 +60,45 @@ router.post("/signup", async (req, res) => {
 
 
 // LOGIN
-// router.post("/login", async (req, res) => {
-//   console.log(req.body);
-//   const { email, password } = req.body;
+router.post("/login", async (req, res) => {
+  console.log(req.body);
+  const { email, password } = req.body;
 
-//   //Finding data on Mongo DB
-//   const user = await User.findOne({ email }).lean();
+  //Finding data on Mongo DB
+  const user = await User.findOne({ email }).lean();
 
-//   if (!user) {
-//     return res.json({ status: "error", error: "email/password mismatach" });
-//   }
+  if (!user) {
+    return res.json({ status: "error", error: "email/password mismatach" });
+  }
 
-//   // If email match with DB then compare entered text password with DB Hash Password
+  // If email match with DB then compare entered text password with DB Hash Password
 
-//   if (await bcrypt.compare(password, user.password)) {
-//     const token = jwt.sign(
-//       {
-//         id: user._id,
-//         email: user.email,
-//       },
-//       JWT_Secret
-//     );
-//     res.json({ status: "ok", data: token });
-//   } else {
-//     res.json({ status: "error", error: "Username/ password mismatach" });
-//   }
+  if (await bcrypt.compare(password, user.password)) {
+    const token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email,
+      },
+      JWT_Secret
+    );
+    res.json({ status: "ok", data: token });
+  } else {
+    res.json({ status: "error", error: "Username/ password mismatach" });
+  }
+});
+
+// router.post('/login', (req, res, next) => {
+//   passport.authenticate('local', {
+//     successRedirect: '/dashboard',
+//     failureRedirect: '/users/login',
+//     // failureFlash: true
+//   })(req, res, next);
 // });
 
-router.post('/login', (req, res, next) => {
-  passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/users/login',
-    failureFlash: true
-  })(req, res, next);
-});
-
-
-//CHAT APPLICATION STUFF
-
-// app.use(express.static(path.join(__dirname, "/Chat_Application"))); //for serving static files
-
-router.get("/chat_application", (req, res) => {
-  res.status(200).render("group_chat");
-});
 
 // GAMES RALATED STUFF
 
-router.get("/games/tictactoe", (req, res) => {
+router.get("/games/tictactoe" , (req, res) => {
   res.status(200).render("games_tictactoe");
 });
 
